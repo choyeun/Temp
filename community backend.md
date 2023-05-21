@@ -110,7 +110,7 @@ class User {
   }
 }
 
-const user = new User('john123', 'password123', 'john@example.com');
+const user = new User('abc123', 'password123', 'abc@example.com');
 user.validate();
 
 ```
