@@ -5,6 +5,7 @@ git
 ## Git 웹호스팅 서비스
 
 Github 
+- Github 계정이 없으면 만들것
 
 ## Git GUI
 
@@ -17,11 +18,11 @@ GitKraken
 ## API
 
 HTTP API
-
+- REST API는구현하기 어렵다
 ## 직렬화 포맷
 
 JSON
-
+- yml이나 xml는 익숙하지 않고 프론트엔드에서 js를 사용
 ## 인증 정보의 위치
 
 Authorization Header
@@ -32,6 +33,7 @@ JWT
 
 ## API 스펙 설계
 
+**변경될 수 있음**
 -   `GET /user/account/check-duplicate/id/{id}` : ID 중복체크 API
 -   `POST /user/account/signup` : 회원가입 API. ID/비밀번호/닉네임을 받는다.
 -   `POST /user/account/auth` : 로그인 API. JWT 포맷으로 인코딩된 access token과 refresh token을 발급한다.
@@ -49,16 +51,18 @@ JWT
 ## API 문서화 방식
 
 GitBook 
+- 프론트엔드에게 API를 전달하는 방식
 https://app.gitbook.com/invite/CnpMekrgYCkIKWWjf3Fj/Wv7ywutJ8RH2pY4qTVjk
 
 ## 프로그래밍 언어
 
 Node.js
 Typescript
-
+- 모르면 공부하는 링크 https://nomadcoders.co/typescript-for-beginners
 ## 웹 프레임워크
 
 Nest.js
+- 모르면 공부하는 링크 https://nomadcoders.co/nestjs-fundamentals
 
 ## 의존성 관리
 
@@ -71,7 +75,7 @@ Nest.js
 ## 데이터베이스
 
 SQLite
-
+- 서버 성능이 그리 높지 않음으로 가벼운 SQLite 사용
 ## 배포 자동화
 
 Github Action 
@@ -84,7 +88,7 @@ https://jay-ji.tistory.com/58
 ## 데이터 유효성 검사
 
 클래스 기반 유효성 검사
-
+- 할지 말지 고민 중
 예시
 ```typescript
 class User {
@@ -118,6 +122,7 @@ user.validate();
 ## SQL 쿼리 처리 방식 
 
 Prisma
+- db를 제어하는 방법
 
 ## 시간 데이터 저장 방식
 
@@ -134,3 +139,4 @@ Prisma
 ## 테스트 프래임워크
 
 Jest
+- 쓸지 말지 고민 중 
