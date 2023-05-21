@@ -85,6 +85,7 @@ https://jay-ji.tistory.com/58
 
 클래스 기반 유효성 검사
 
+예시
 ```typescript
 class User {
   username: string;
