@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>김인찬 : 웹 폼 연습-2</title>
+</head>
+
+<body>
+<H3>김인찬의 Web Form 연습-2</H3>
+<HR>
+<form>
+    <fieldset>
+        <legend> A.색 선택 :</legend>
+        <table border="0">
+            <tr>
+                <td>__1.Text Color :</td>
+                <td align="center" width="100"><input onchange="document.body.style.color=this.value" type="color"></td>
+            </tr>
+            <tr>
+                <td>__2.BackGround Color :</td>
+                <td align="center" width="100"><input onchange="document.body.style.background=this.value" type="color">
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>B.시간 선택 :</legend>
+        <table border="0">
+            <tr>
+                <td>__3.Month :</td>
+                <td align="" width="100"><input type="month" value="2024-04"></td>
+            </tr>
+            <tr>
+                <td>__4.Week :</td>
+                <td align="" width="100"><input type="week" value="2024-W15"></td>
+            </tr>
+            <tr>
+                <td>__5.Date :</td>
+                <td align="" width="100"><input type="date" value="2024-04-10"></td>
+            </tr>
+            <tr>
+                <td>__6.Time :</td>
+                <td align="" width="100"><input type="time" value="12:34"></td>
+            </tr>
+            <tr>
+                <td>__7.DateTime :</td>
+                <td align="" width="100"><input type="datetime-local" value="2024-04-10T12:34:56.00"></td>
+            </tr>
+
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>C.값 입력 :</legend>
+        <table border="0">
+            <tr>
+                <td>__8.스핀 (0.0~10.0) :</td>
+                <td align="" width="100"><input max="10.0" min="0.0" step="0.001" type="number" value="1.0"></td>
+            </tr>
+            <tr>
+                <td>__9.슬라이드 바 : 0&deg;</td>
+                <td align="" width="100"><input list="temp" max="100" min="0" type="range" value="3.5">100&deg;</td>
+            </tr>
+            <datalist id="temp">
+                <option label="Low" value="10">
+                <option label="Medium" value="50">
+                <option label="High" value="90">
+            </datalist>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>E. 형식을 가진 텍스트 :</legend>
+        <table border="0">
+            <tr>
+                <td>_10.Hint :</td>
+                <td align="" width="100">
+                    <input placeholder="한글이름" type="text"></td>
+            </tr>
+            <tr>
+                <td>_11.Mail :</td>
+                <td align="" width="100">
+                    <input placeholder="id@host" type="email">
+                    <input type="submit" value="전송"></td>
+            </tr>
+            <tr>
+                <td>_12. URL :</td>
+                <td align="" width="100">
+                    <input placeholder="https://" type="url"></td>
+            </tr>
+            <tr>
+                <td>_13. Tel :</td>
+                <td align="" width="100">
+                    <input placeholder="010-1234-5678" type="tel"></td>
+            </tr>
+            <tr>
+                <td>_14.Search :</td>
+                <td align="" width="100">
+                    <input placeholder="검색어" type="search">
+                    <input type="button" value="검색"></td>
+            </tr>
+            <tr>
+                <td>
+                    _15. Naver Search :
+                </td>
+                <td align="" width="100"><a HREF="Lab_Naver.html" target="_blank">
+                    <button type="button"> 네이버 검색</button></td>
+            </tr>
+            </a></table>
+    </fieldset>
+
+    <HR>
+
+</form>
+
+</body>
+
+</html>
