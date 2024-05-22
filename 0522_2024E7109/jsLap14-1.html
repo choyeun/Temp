@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>구구단 출력하기(table)</title>
+</head>
+
+<body>
+    <h3>구구단 출력하기(table)</h3>
+    <hr>
+    <script>
+        for (let i = 1; i <= 9; i++) {
+            document.write("<table border=1 width=100>");
+            for (let j = 1; j <= 9; j++) {
+                document.write("<tr align=center>");
+                document.write("<td>" + i + " x " + j + " = " + (i * j) + "</td>");
+                document.write("</tr>");
+            }
+            document.write("</table><br>");
+
+        }
+    </script>
+    <hr>
+</body>
+
+</html>
