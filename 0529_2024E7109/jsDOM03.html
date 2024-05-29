@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 
 <head>
+<meta charset="UTF-8">
     <title>innerHTML 활용</title>
     <script>
         function change() {
-            var p = document.getElementById("firstP");
-            p.innerHTML = "나의 <img src='puppy.png'> 강아지";
+            let p = document.getElementById("firstP");
+            p.innerHTML = "나의 <img alt='강아지' src='puppy.png'> 강아지";
         }
     </script>
 </head>
