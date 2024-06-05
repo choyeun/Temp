@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+    <title>if-else</title>
+</head>
+
+<body>
+    <h3>if-else를 이용하여 홀짝 판별하기</h3>
+    <hr>
+    <script>
+        let N = prompt("숫자를 입력하시오", '0');
+        N = parseInt(N); // 문자열을 숫자로 바꿈
+        if ((N % 2) === 0) {
+            document.write("입력값 " + N + "는 짝수입니다.<br>")
+        }
+        else {
+            document.write("입력값 " + N + "는 홀수입니다.<br>")
+        }
+    </script>
+</body>
+
+</html>

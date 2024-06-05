@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>구구단 출력하기(table)</title>
+</head>
+
+<body>
+    <h3>구구단 출력하기(table)</h3>
+    <hr>
+    <script>
+        document.write("<table border=0 style='border-collapse: collapse;'>");
+
+        for (let row = 0; row < 3; row++) {
+            document.write("<tr>");
+
+            for (let col = 1; col <= 3; col++) {
+                let i = row * 3 + col; // 단 계산
+                if (i <= 9) { // 9단까지만 출력
+                    document.write("<td valign='top'>");
+                    document.write("<table border=1 style=' margin-bottom: 20px;'>");
+
+                    for (let j = 1; j <= 9; j++) {
+                        document.write("<tr align=center>");
+                        document.write("<td>" + i + " x " + j + " = " + (i * j) + "</td>");
+                        document.write("</tr>");
+                    }
+
+                    document.write("</table>");
+                    document.write("</td>");
+                }
+            }
+
+            document.write("</tr>");
+        }
+
+        document.write("</table>");
+    </script>
+    <hr>
+</body>
+
+</html>

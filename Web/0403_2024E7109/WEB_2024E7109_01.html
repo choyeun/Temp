@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>로그인 폼</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<h3>로그인 폼</h3>
+<hr>
+<form method="get" name="fo">
+    사용자 ID : <input size="15" type="text" value="김인찬"><br>
+    비밀 번호 : <input size="15" type="password" value="">
+    <input type="submit" value="완료"><br>
+    <input type="button" value="김인찬 버튼">
+    <input type="reset" value="김인찬 리셋">
+    <input src="newbongman.png" type="image" value="김인찬 버튼" width="20">
+    자소서 : <textarea cols="20" rows="5">이곳에 자기소개서 작성
+</textarea>
+    <br>
+    나라 : <input list="countries" type="text">
+    <datalist id="countries">
+        <option value="가나">
+        <option value="스위스">
+        <option value="브라질">
+    </datalist>
+    <br>
+    보고싶은 것 : <input list="what" type="text">
+    <datalist id="what">
+        <option value="산">
+        <option value="바다">
+        <option value="도시">
+    </datalist>
+    <br>
+    <hr>
+    <button>버튼</button>
+    짜장면 <input type="checkbox" value="1">
+    짬뽕 <input checked type="checkbox" value="2">
+    탕수육 <input type="checkbox" value="3">
+    <hr>
+    <input name="china" type="radio" value="1">
+    짜장면
+    <input checked name="china" type="radio" value="2">
+    짬뽕
+    <input name="china" type="radio" value="3">
+    탕수육
+    <input checked name="korea" type="radio" value="2">
+    국수
+    <input name="korea" type="radio" value="3">
+    냉면
+    <hr>
+	<select name="china">
+		<option value="1">짜장면</option>
+		<option value="2" selected>짬뽕</option>
+		<option value="3">탕수육</option>
+	</select>
+
+</form>
+</body>
+
+</html>
