@@ -15,10 +15,10 @@ void main() {
 	struct student s;
 
 	s.number = 202401001;
-	strcpy(s.name, "ìœ ìˆ˜ë´‰");
+	strcpy(s.name, "±èÀÎÂù");
 	s.grade = 4.3;
 
-	printf("1.í•™ë²ˆ: %d\n", s.number);
-	printf("2.ì´ë¦„: %s\n", s.name);
-	printf("3.í•™ì : %f\n", s.grade);
+	printf("1.ÇĞ¹ø: %d\n", s.number);
+	printf("2.ÀÌ¸§: %s\n", s.name);
+	printf("3.ÇĞÁ¡: %f\n", s.grade);
 }
