@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>김인찬(202301001) - 로컬 스토리지 사용하기-2</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #graph-container {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+        #graph {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+<h3>jsEx_04 : 로컬 스토리지 사용하기-2</h3>
+<hr>
+▶학번 : <input id="sid" type="text" size="10">
+▶이름 : <input id="name" type="text" size="10"><br>
+▶전공 : <input id="major" type="text" size="10">
+▶교양 : <input id="culture" type="text" size="10"><br>
+▷합계 : <input id="total" type="text" style="background-color: lightgray; text-align:center;" size="10">
+▷평균 : <input id="average" type="text" style="background-color: lightgray; text-align:center;" size="10"><br>
+<hr>
+<button type="button" id="save" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="store()">저장</button>
+<button type="button" id="retrieve" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="retrieve()">조회</button>
+<button type="button" id="update" style="background-color:yellow; height: 50px; width: 80px"
+        onclick="update()">수정</button>
+<button type="button" id="remove" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="remove()">삭제</button>
+<button type="button" id="init" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="init()">초기화</button>
+<hr>
+<button type="button" id="listAll" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="listAll()">전체보기</button>
+<button type="button" id="listSort" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="listSort()">이름순</button>
+<button type="button" id="listRank" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listRank()">성적순</button>
+<button type="button" id="listGraph1" style="background-color: lightgreen; height: 50px; width: 80px"
+        onclick="listGraph1()">그래프-1</button>
+<button type="button" id="listGraph2" style="background-color: yellow; height: 50px; width: 80px"
+        onclick="listGraph2()">그래프-2</button>
+<hr>
+<p id="result1"></p>
+<p id="result2"></p>
+<div id="graph-container">
+    <canvas id="graph"></canvas>
+</div>
+<hr>
+
+<script>
+    let sid = document.getElementById("sid");
+    let name = document.getElementById("name");
+    let major = document.getElementById("major");
+    let culture = document.getElementById("culture");
+    let total = document.getElementById("total");
+    let average = document.getElementById("average");
+    let currentChart = null; // 현재 표시되는 차트를 저장하기 위한 변수
+
+    function store() {
+        if (sid.value.length > 0) {
+            localStorage.setItem(sid.value, name.value + "," + major.value + "," + culture.value);
+            result1.innerHTML = sid.value + " 의 성적 자료를 저장하였습니다.<hr>";
+        } else {
+            alert("<확인> 입력값이 없습니다");
+        }
+        result2.innerHTML = "";
+    }
+
+    function retrieve() {
+        var val = localStorage.getItem(sid.value);
+        if (val == null)
+            alert("' " + sid.value + " ' 는 등록되어있지 않습니다.");
+        else {
+            let data = val.split(',');
+            name.value = data[0];
+            major.value = data[1];
+            culture.value = data[2];
+            total.value = parseInt(major.value) + parseInt(culture.value);
+            average.value = (total.value / 2).toFixed(2);
+            result1.innerHTML = sid.value + " 의 성적 자료를 조회하였습니다.<hr>";
+        }
+        result2.innerHTML = "";
+    }
+
+    function update() {
+        if (sid.value.length > 0) {
+            localStorage.setItem(sid.value, name.value + "," + major.value + "," + culture.value);
+            result1.innerHTML = sid.value + " 의 성적 자료를 수정하였습니다.<hr>";
+        } else {
+            alert("<확인> 입력값이 없습니다");
+        }
+        result2.innerHTML = "";
+    }
+
+    function remove() {
+        if (sid.value.length > 0) {
+            localStorage.removeItem(sid.value);
+            result1.innerHTML = sid.value + " 의 성적 자료를 삭제하였습니다.<hr>";
+        } else {
+            alert("<확인> 입력값이 없습니다");
+        }
+        result2.innerHTML = "";
+    }
+
+    function init() {
+        localStorage.clear();
+        localStorage.setItem("202301055", "김인찬,95,81");
+        localStorage.setItem("202202044", "나가요,84,92");
+        localStorage.setItem("202103033", "오시오,73,93");
+        localStorage.setItem("202204022", "어서요,62,94");
+        localStorage.setItem("202305011", "마지막,51,85");
+
+        result1.innerHTML = "(웹 스토리지를 초기화 하였습니다)<hr>";
+        result2.innerHTML = "";
+    }
+
+    function calculateRank(arr) {
+        arr.sort((a, b) => b.total - a.total);
+        for (let i = 0; i < arr.length; i++) {
+            arr[i].rank = i + 1;
+        }
+        return arr;
+    }
+
+    function clearChart() {
+        if (currentChart) {
+            currentChart.destroy();
+            currentChart = null;
+        }
+        var canvas = document.getElementById("graph");
+        var context = canvas.getContext("2d");
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.width = 0;
+        canvas.height = 0;
+    }
+
+    function listAll() {
+        clearChart();
+        let students = [];
+        for (let N = 0; N < localStorage.length; N++) {
+            let key = localStorage.key(N);
+            let data = localStorage.getItem(key).split(',');
+            let total = parseInt(data[1]) + parseInt(data[2]);
+            let average = (total / 2).toFixed(2);
+            students.push({ sid: key, name: data[0], major: data[1], culture: data[2], total: total, average: average });
+        }
+        students = calculateRank(students);
+
+        let str = "<h3 align=center>(웹스토리지) 전체 보기</h3>";
+        str += "<table border=1>";
+        str += "<tr><th width=50>학번</th><th width=50>이름</th><th width=50 align=center>전공</th><th width=50>교양</th><th width=50>합계</th><th width=50>평균</th><th width=50>석차</th></tr>";
+
+        students.forEach(student => {
+            str += `<tr>
+                        <td align=center>${student.sid}</td>
+                        <td align=center>${student.name}</td>
+                        <td align=center>${student.major}</td>
+                        <td align=center>${student.culture}</td>
+                        <td align=center>${student.total}</td>
+                        <td align=center>${student.average}</td>
+                        <td align=center>${student.rank}</td>
+                    </tr>`;
+        });
+
+        str += "<tfoot><tr><td colspan=7 align=center>작성자 : 김인찬(2024E7109)</td></tr></tfoot>";
+        str += "</table>";
+
+        result1.innerHTML = "(웹 스토리지) 전체 데이터를 출력하였습니다.<hr>";
+        result2.innerHTML = str;
+    }
+
+    function listSort() {
+        clearChart();
+        let students = [];
+        for (let N = 0; N < localStorage.length; N++) {
+            let key = localStorage.key(N);
+            let data = localStorage.getItem(key).split(',');
+            let total = parseInt(data[1]) + parseInt(data[2]);
+            let average = (total / 2).toFixed(2);
+            students.push({ sid: key, name: data[0], major: data[1], culture: data[2], total: total, average: average });
+        }
+        students = calculateRank(students);
+        students.sort((a, b) => a.name.localeCompare(b.name));
+
+        let str = "<h3 align=center>(웹스토리지) 이름순으로 출력하기</h3>";
+        str += "<table border=1>";
+        str += "<tr><th width=50>학번</th><th width=50>이름</th><th width=50 align=center>전공</th><th width=50>교양</th><th width=50>합계</th><th width=50>평균</th><th width=50>석차</th></tr>";
+
+        students.forEach(student => {
+            str += `<tr>
+                        <td align=center>${student.sid}</td>
+                        <td align=center bgcolor=Yellow>${student.name}</td>
+                        <td align=center>${student.major}</td>
+                        <td align=center>${student.culture}</td>
+                        <td align=center>${student.total}</td>
+                        <td align=center>${student.average}</td>
+                        <td align=center>${student.rank}</td>
+                    </tr>`;
+        });
+
+        str += "<tfoot><tr><td colspan=7 align=center>작성자 : 김인찬(2024E7109)</td></tr></tfoot>";
+        str += "</table>";
+
+        result1.innerHTML = "(웹 스토리지) 데이터를 이름순으로 출력하였습니다.<hr>";
+        result2.innerHTML = str;
+    }
+
+    function listRank() {
+        clearChart();
+        let students = [];
+        for (let N = 0; N < localStorage.length; N++) {
+            let key = localStorage.key(N);
+            let data = localStorage.getItem(key).split(',');
+            let total = parseInt(data[1]) + parseInt(data[2]);
+            let average = (total / 2).toFixed(2);
+            students.push({ sid: key, name: data[0], major: data[1], culture: data[2], total: total, average: average });
+        }
+        students = calculateRank(students);
+
+        let str = "<h3 align=center>(웹스토리지) 성적순으로 출력하기</h3>";
+        str += "<table border=1>";
+        str += "<tr><th width=50>학번</th><th width=50>이름</th><th width=50 align=center>전공</th><th width=50>교양</th><th width=50>합계</th><th width=50>평균</th><th width=50>석차</th></tr>";
+
+        students.forEach(student => {
+            str += `<tr>
+                        <td align=center>${student.sid}</td>
+                        <td align=center>${student.name}</td>
+                        <td align=center>${student.major}</td>
+                        <td align=center>${student.culture}</td>
+                        <td align=center>${student.total}</td>
+                        <td align=center>${student.average}</td>
+                        <td align=center>${student.rank}</td>
+                    </tr>`;
+        });
+
+        str += "<tfoot><tr><td colspan=7 align=center>작성자 : 김인찬(2024E7109)</td></tr></tfoot>";
+        str += "</table>";
+
+        result1.innerHTML = "(웹 스토리지) 데이터를 성적순으로 출력하였습니다.<hr>";
+        result2.innerHTML = str;
+    }
+
+    function listGraph1() {
+        clearChart();
+        var canvas = document.getElementById("graph");
+        var context = canvas.getContext("2d");
+
+        if (canvas.width > 0) {
+            canvas.width = 0;
+            canvas.height = 0;
+            result1.innerHTML = "그래프 감추기<hr>";
+        } else {
+            canvas.width = 400;
+            canvas.height = 300;
+            context.clearRect(0, 0, 500, 300);
+            context.beginPath();
+
+            context.font = "30px 'Tahoma'";
+            context.strokeText("성적표(평균) 그래프", 20, 50);
+            context.font = "10px 'Tahoma'";
+
+            for (N = 0; N < localStorage.length; N++) {
+                let data = localStorage.getItem(localStorage.key(N)).split(',');
+                let S = (parseInt(data[1]) + parseInt(data[2])) / 2;
+                context.fillText(data[0], (N * 50) + 20, 270);
+                context.strokeRect((N * 50) + 20, 250 - S, 30, S);
+                context.fillText((S.toFixed(1)).toString(), (N * 50) + 25, 240 - S);
+            }
+
+            result1.innerHTML = "평균 점수를 그래프로 그렸습니다.<hr>";
+        }
+        result2.innerHTML = "";
+    }
+
+    function listGraph2() {
+        clearChart();
+        var canvas = document.getElementById("graph");
+        var context = canvas.getContext("2d");
+
+        canvas.width = 600;  // 그래프 크기 조정
+        canvas.height = 400; // 그래프 크기 조정
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+        let labels = [];
+        let majorScores = [];
+        let cultureScores = [];
+        let ranks = [];
+
+        let students = [];
+        for (let N = 0; N < localStorage.length; N++) {
+            let key = localStorage.key(N);
+            let data = localStorage.getItem(key).split(',');
+            labels.push(data[0]);
+            majorScores.push(parseInt(data[1]));
+            cultureScores.push(parseInt(data[2]));
+            let total = parseInt(data[1]) + parseInt(data[2]);
+            students.push({ sid: key, name: data[0], total: total });
+        }
+        students = calculateRank(students);
+        students.sort((a, b) => labels.indexOf(a.name) - labels.indexOf(b.name));
+        for (let student of students) {
+            ranks.push(student.rank);
+        }
+
+        currentChart = new Chart(context, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '전공 점수',
+                        data: majorScores,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '교양 점수',
+                        data: cultureScores,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        type: 'line',
+                        label: '석차',
+                        data: ranks,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        fill: false,
+                        yAxisID: 'y-axis-rank'
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    },
+                    'y-axis-rank': {
+                        type: 'linear',
+                        position: 'right',
+                        beginAtZero: true,
+                        reverse: true, // 석차가 낮은 값이 상위에 표시되도록 반전
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        result1.innerHTML = "전공과 교양 점수 및 석차를 비교한 콤보 그래프를 그렸습니다.<hr>";
+        result2.innerHTML = "";
+    }
+</script>
+</body>
+
+</html>
