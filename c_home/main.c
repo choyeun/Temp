@@ -1,21 +1,18 @@
-//
-// Created by choye on 2024-06-22 토.
-//
 // 참고용 성적 처리 프로그램
 #pragma warning(disable:4996)
-#include <stdio.h>	// 표준 입출력을 지원하는 라이브러리
-#include <string.h>	// 문자열 연산을 지원하는 라이브러리
-#include <stdlib.h>	// 화면을 지우기 위한 system 명령을 지원하는 라이브러리
-#include <windows.h>	// 화면에 좌표를 지정하는 gotoxy 용 명령을 지원하는 라이브러리
-#include <conio.h>	// 키보드 입력용 getch 를 지원하는 라이브러리
+#include <stdio.h>    // 표준 입출력을 지원하는 라이브러리
+#include <string.h>    // 문자열 연산을 지원하는 라이브러리
+#include <stdlib.h>    // 화면을 지우기 위한 system 명령을 지원하는 라이브러리
+#include <windows.h>    // 화면에 좌표를 지정하는 gotoxy 용 명령을 지원하는 라이브러리
+#include <conio.h>    // 키보드 입력용 getch 를 지원하는 라이브러리
 
 void gotoxy(int x, int y) {
     COORD Pos = { x - 1, y - 1 };
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Pos);
 }
-int  InputData();	int  ViewData();	int  EditData();
-int  SaveReport0();	int  SaveReport1();	int  SaveReport2();
-int  SaveCSV();	int  SaveHTML();
+int  InputData();    int  ViewData();    int  EditData();
+int  SaveReport0();    int  SaveReport1();    int  SaveReport2();
+int  SaveCSV();    int  SaveHTML();
 
 FILE* fp1, * fp2;
 char fname1[20], fname2[20], sid[10], name[10];
@@ -41,21 +38,22 @@ int main(void) {
         N = getch();
 
         switch (N) {
-            case  '0':  return 0;		break; 	// 작업 종료
-            case  '1':  InputData();	break; 	// 데이터 입력
-            case  '2':  ViewData();	break; 	// 데이터 확인
-            case  '3':  SaveReport0();	break; 	// 성적집계표 출력
-            case  '4':  SaveReport1();	break; 	// 성적집계표-1 출력(이름순)
-            case  '5':  SaveReport2();	break; 	// 성적집계표-2 출력(성적순)
-            case  '6':  EditData();		break; 	// 개인별 데이터 수정
-            case  '8':  SaveCSV();		break; 	// Excel File(CSV) 로 출력(이름순)
-            case  '9':  SaveHTML(); 	break; 	// Web Page(HTML) 로 출력(성적순)
+            case  '0':  return 0;        break;     // 작업 종료
+            case  '1':  InputData();    break;     // 데이터 입력
+            case  '2':  ViewData();    break;     // 데이터 확인
+            case  '3':  SaveReport0();    break;     // 성적집계표 출력
+            case  '4':  SaveReport1();    break;     // 성적집계표-1 출력(이름순)
+            case  '5':  SaveReport2();    break;     // 성적집계표-2 출력(성적순)
+            case  '6':  EditData();        break;     // 개인별 데이터 수정
+            case  '8':  SaveCSV();        break;     // Excel File(CSV) 로 출력(이름순)
+            case  '9':  SaveHTML();     break;     // Web Page(HTML) 로 출력(성적순)
         }
         printf("\n\t -------------------------------------<< 확인 >>");
         N = getch();
         system("cls");
     }
 }
+
 // 성적 데이터 입력 처리
 int  InputData() {
 
@@ -67,7 +65,7 @@ int  InputData() {
         // 성적파일을 쓰기 모드로 연다.
         if ((fp1 = fopen(fname1, "w")) == NULL)
         {
-            fprintf(stderr, "\n(!) \"%s\" 을 열 수 없습니다.\n", fname1);	return 0;
+            fprintf(stderr, "\n(!) \"%s\" 을 열 수 없습니다.\n", fname1);    return 0;
         }
         else
         {
@@ -89,10 +87,10 @@ int  InputData() {
             }
             if (strcmp(sid, ".") == 0) { break; }    // 학번이 '.' 인지 확인I
 
-            gotoxy(2, 6);	printf("-. 이름 : ");	scanf("%s", name);
-            gotoxy(2, 8);	printf("-. 국어 : ");	scanf("%d", &score1);
-            gotoxy(2, 9);	printf("-. 영어 : ");	scanf("%d", &score2);
-            gotoxy(2, 10);	printf("-. 수학 : ");	scanf("%d", &score3);
+            gotoxy(2, 6);    printf("-. 이름 : ");    scanf("%s", name);
+            gotoxy(2, 8);    printf("-. 국어 : ");    scanf("%d", &score1);
+            gotoxy(2, 9);    printf("-. 영어 : ");    scanf("%d", &score2);
+            gotoxy(2, 10);    printf("-. 수학 : ");    scanf("%d", &score3);
 
             fprintf(fp1, "%10s %5s %3d %3d %3d\n",
                     sid, name, score1, score2, score3);    // 파일에 저장하기
@@ -120,7 +118,12 @@ int ViewData() {
     // 성적파일을 읽기 모드로 연다.
     if ((fp1 = fopen(fname1, "r")) == NULL)
     {
-        fprintf(stderr, "\n(!) \"%s\" 을 열 수 없습니다.", fname1);  	return 0;
+        fprintf(stderr, "\n(!) \"%s\" 을 열 수 없습니다. 새로운 파일을 생성합니다.\n", fname1);
+        fp1 = fopen(fname1, "w+"); // 파일이 없으면 생성
+        if (fp1 == NULL) {
+            fprintf(stderr, "\n(!) \"%s\" 파일을 생성할 수 없습니다.\n", fname1);
+            return 0;
+        }
     }
     else
     {
@@ -130,7 +133,7 @@ int ViewData() {
     printf("\n(!) %s 파일 내용은 다음과 같습니다.", fname1);
 
     printf("\n\t 성적데이터 파일 내용 확인");
-    printf("\n\t ========= ====== ==== ==== ==== ");
+    printf("\n\t ========= ====== ==== ==== ==== ==== ");
 
 
     while (!feof(fp1)) {
@@ -153,10 +156,10 @@ int ViewData() {
 char Grade(int X) {
     char grade;
     if (X >= 90) grade = 'A';
-    else 	if (X >= 80) grade = 'B';
-    else 	if (X >= 70) grade = 'C';
-    else 	if (X >= 60) grade = 'D';
-    else 	if (X <= 59) grade = 'F';
+    else     if (X >= 80) grade = 'B';
+    else     if (X >= 70) grade = 'C';
+    else     if (X >= 60) grade = 'D';
+    else     if (X <= 59) grade = 'F';
     return grade;
 }
 
@@ -179,7 +182,12 @@ int  SaveReport0() {
     strcpy(fname1, "c:/Temp/성적데이터.txt");
     if ((fp1 = fopen(fname1, "r")) == NULL)
     {
-        fprintf(stderr, "(!) 입력파일I : \"%s\" 을 열 수 없습니다.\n", fname1);	return 0;
+        fprintf(stderr, "(!) 입력파일I : \"%s\" 을 열 수 없습니다. 새로운 파일을 생성합니다.\n", fname1);
+        fp1 = fopen(fname1, "w+"); // 파일이 없으면 생성
+        if (fp1 == NULL) {
+            fprintf(stderr, "(!) \"%s\" 파일을 생성할 수 없습니다.\n", fname1);
+            return 0;
+        }
     }
     else
     {
@@ -208,7 +216,7 @@ int  SaveReport0() {
         fscanf(fp1, "%s %s %d %d %d", sid, name, &score1, &score2, &score3);
         if (feof(fp1)) { break; }
 
-        total = score1 + score2 + score3;	average = total / 3;
+        total = score1 + score2 + score3;    average = total / 3;
 
         fprintf(fp2, "\n %s %s%4d %4d %4d %5d %4d   %c",
                 sid, name, score1, score2, score3, total, average, Grade(average));
@@ -218,8 +226,8 @@ int  SaveReport0() {
     fprintf(fp2, "\n ========= ====== ==== ==== ==== ==== ==== ====\n ");
 
     // 입/출력 파일 닫기
-    fclose(fp2);	printf("\n(!) 출력파일을 닫았습니다.");
-    fclose(fp1);	printf("\n(!) 입력파일을 닫았습니다.");
+    fclose(fp2);    printf("\n(!) 출력파일을 닫았습니다.");
+    fclose(fp1);    printf("\n(!) 입력파일을 닫았습니다.");
     system("c:/Temp/성적집계표-1.txt");
     return 0;
 }
@@ -231,7 +239,12 @@ int  SaveCSV() {
 
     if ((fp1 = fopen(fname1, "r")) == NULL)
     {
-        printf("\n(!) 입력파일 : \"%s\" 을 열 수 없습니다.", fname1);	return 0;
+        fprintf(stderr, "(!) 입력파일 : \"%s\" 을 열 수 없습니다. 새로운 파일을 생성합니다.\n", fname1);
+        fp1 = fopen(fname1, "w+"); // 파일이 없으면 생성
+        if (fp1 == NULL) {
+            fprintf(stderr, "(!) \"%s\" 파일을 생성할 수 없습니다.\n", fname1);
+            return 0;
+        }
     }
     else
     {
@@ -242,7 +255,7 @@ int  SaveCSV() {
     strcpy(fname2, "c:/Temp/성적집계표.CSV");
     if ((fp2 = fopen(fname2, "w")) == NULL)
     {
-        printf("\n(!) 출력파일 : \"%s\" 을 만들 수 없습니다.", fname2);	return 0;
+        fprintf(stderr, "(!) 출력파일 : \"%s\" 을 만들 수 없습니다.\n", fname2);    return 0;
     }
     else
     {
@@ -272,8 +285,8 @@ int  SaveCSV() {
     fprintf(fp2, "==========,=====,=====,=====,=====,=====,=====,===== \n");
 
     // 입출력 파일 닫기----------------------------------------------------
-    fclose(fp1);	printf("\n(!) 입력파일을 닫았습니다.");
-    fclose(fp2);	printf("\n(!) 출력파일을 닫았습니다.");
+    fclose(fp1);    printf("\n(!) 입력파일을 닫았습니다.");
+    fclose(fp2);    printf("\n(!) 출력파일을 닫았습니다.");
     system("c:/Temp/성적집계표.CSV");
 
     return 0;
@@ -285,7 +298,12 @@ int  SaveHTML() {
     strcpy(fname1, "c:/Temp/성적데이터.txt");
 
     if ((fp1 = fopen(fname1, "r")) == NULL) {
-        fprintf(stderr, "(!) 입력파일 : \"%s\" 을 열 수 없습니다.\n", fname1);	return 0;
+        fprintf(stderr, "(!) 입력파일 : \"%s\" 을 열 수 없습니다. 새로운 파일을 생성합니다.\n", fname1);
+        fp1 = fopen(fname1, "w+"); // 파일이 없으면 생성
+        if (fp1 == NULL) {
+            fprintf(stderr, "(!) \"%s\" 파일을 생성할 수 없습니다.\n", fname1);
+            return 0;
+        }
     }
     else {
         printf("(!) 입력파일 : \"%s\" 을 열었습니다.\n", fname1);
@@ -294,7 +312,8 @@ int  SaveHTML() {
     // 출력 파일 열기
     strcpy(fname2, "c:/Temp/성적집계표.HTML");
     if ((fp2 = fopen(fname2, "w")) == NULL) {
-        fprintf(stderr, "(!) 출력파일 : \"%s\" 을 만들 수 없습니다.\n", fname2); return 0;
+        fprintf(stderr, "(!) 출력파일 : \"%s\" 을 만들 수 없습니다.\n", fname2);
+        return 0;
     }
     else {
         printf("(!) 출력파일 : \"%s\" 을 만들었습니다.\n", fname2);
@@ -318,7 +337,7 @@ int  SaveHTML() {
     while (!feof(fp1)) {
         fscanf(fp1, "%s %s %d %d %d", sid, name, &score1, &score2, &score3);
         if (feof(fp1)) { break; }
-        total = score1 + score2 + score3;	  average = total / 3;
+        total = score1 + score2 + score3;      average = total / 3;
 
         fprintf(fp2, "<TR><TD>%s</TD><TD>%s</TD><TD>%d</TD><TD>%d</TD><TD>%d</TD><TD>%d</TD><TD>%d</TD><TD>%c</TD></TR> \n",
                 sid, name, score1, score2, score3, total, average, Grade(total));
@@ -330,8 +349,8 @@ int  SaveHTML() {
     fprintf(fp2, "</BODY> \n </HTML> \n");
 
     // 입/출력 파일 닫기----------------------------------------------------
-    fclose(fp1);	printf("(!) 입력파일을 닫았습니다.\n");
-    fclose(fp2);	printf("(!) 출력파일을 닫았습니다.\n");
+    fclose(fp1);    printf("(!) 입력파일을 닫았습니다.\n");
+    fclose(fp2);    printf("(!) 출력파일을 닫았습니다.\n");
     system("c:/Temp/성적집계표.HTML");
     return 0;
 }
