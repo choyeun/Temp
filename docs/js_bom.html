@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js_bom</title>
+</head>
+<body>
+    <h1>javascript - BOM</h1>
+
+    <ul>
+        <li class="list">1. BOM은 Browser Object Model의 약자입니다.</li>
+        <li class="list">2. BOM은 웹 브라우저의 객체를 트리 구조로 표현합니다.</li>
+        <li class="list">3. BOM은 웹 브라우저의 객체에 접근하고 조작할 수 있습니다.</li>
+        <li class="list">4. BOM은 웹 브라우저의 객체에 이벤트를 추가하거나 제거할 수 있습니다.</li>
+    </ul>
+
+    <hr>
+
+    <h2>BOM 실행 전 코드</h2>
+
+    <xmp>
+        <script>
+            document.getElementById('bomButton').addEventListener('click', function() {
+                // BOM 객체 선택
+                var windowObj = window;
+                var screenObj = window.screen;
+                var locationObj = window.location;
+                var historyObj = window.history;
+                var navigatorObj = window.navigator;
+    
+                // BOM 객체 조작
+                // 문서 내용을 document.write()로 다시 작성하는 것은 권장되지 않음
+                document.body.innerHTML = ''; // 기존 내용을 지웁니다.
+                document.body.innerHTML += "<p>window 객체: " + windowObj + "</p>";
+                document.body.innerHTML += "<p>screen 객체: " + screenObj + "</p>";
+                document.body.innerHTML += "<p>location 객체: " + locationObj + "</p>";
+                document.body.innerHTML += "<p>history 객체: " + historyObj + "</p>";
+                document.body.innerHTML += "<p>navigator 객체: " + navigatorObj + "</p>";
+            });
+        </script>
+    </xmp>
+
+    <hr>
+
+    <button id="bomButton">BOM 실행</button>
+
+    <script>
+        document.getElementById('bomButton').addEventListener('click', function() {
+            // BOM 객체 선택
+            var windowObj = window;
+            var screenObj = window.screen;
+            var locationObj = window.location;
+            var historyObj = window.history;
+            var navigatorObj = window.navigator;
+
+            // BOM 객체 조작
+            // 문서 내용을 document.write()로 다시 작성하는 것은 권장되지 않음
+            document.body.innerHTML = ''; // 기존 내용을 지웁니다.
+            document.body.innerHTML += "<p>window 객체: " + windowObj + "</p>";
+            document.body.innerHTML += "<p>screen 객체: " + screenObj + "</p>";
+            document.body.innerHTML += "<p>location 객체: " + locationObj + "</p>";
+            document.body.innerHTML += "<p>history 객체: " + historyObj + "</p>";
+            document.body.innerHTML += "<p>navigator 객체: " + navigatorObj + "</p>";
+        });
+    </script>
+
+</body>
+</html>

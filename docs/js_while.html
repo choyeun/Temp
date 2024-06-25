@@ -21,37 +21,46 @@
 
 <xmp>
     <script>
-        var num = 1;
-
-        while (num <= 5) {
-            document.write("num은 " + num + "입니다.<br>");
-            num++;
+        // 사용자로부터 최대 숫자 입력 받기
+        var input = prompt("최대 숫자를 입력해주세요:");
+        var maxNum = parseInt(input); // 입력받은 값을 정수로 변환
+    
+        // 입력값 검증
+        if (isNaN(maxNum) || maxNum < 1) {
+            document.write("1 이상의 유효한 숫자를 입력해주세요.");
+        } else {
+            var num = 1; // 시작 숫자
+            while (num <= maxNum) {
+                document.write("num은 " + num + "입니다.<br>");
+                num++;
+            }
         }
     </script>
+    
 
 </xmp>
 
-<hr>
 
-<h2>while 실행후 반환 값</h2>
 
-<ul>
-    <li>1. while 문은 조건식이 참인 동안 코드 블록을 반복 실행합니다.</li>
-    <li>2. 조건식이 거짓이면 코드 블록을 실행하지 않습니다.</li>
-    <li>3. 조건식이 참인 동안 코드 블록을 반복 실행합니다.</li>
-
-</ul>
 
 <hr>
-
 <script>
-    var num = 1;
+    // 사용자로부터 최대 숫자 입력 받기
+    var input = prompt("최대 숫자를 입력해주세요:");
+    var maxNum = parseInt(input); // 입력받은 값을 정수로 변환
 
-    while (num <= 5) {
-        document.write("num은 " + num + "입니다.<br>");
-        num++;
+    // 입력값 검증
+    if (isNaN(maxNum) || maxNum < 1) {
+        document.write("1 이상의 유효한 숫자를 입력해주세요.");
+    } else {
+        var num = 1; // 시작 숫자
+        while (num <= maxNum) {
+            document.write("num은 " + num + "입니다.<br>");
+            num++;
+        }
     }
 </script>
+
 
 
 </body>

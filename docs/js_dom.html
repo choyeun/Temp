@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js_Dom</title>
+</head>
+<body>
+    <h1 id="title">javascript - Dom</h1> 
+
+    <ul>
+        <li class="list">1. Dom은 Document Object Model의 약자입니다.</li> 
+        <li class="list">2. Dom은 웹 페이지의 객체를 트리 구조로 표현합니다.</li> 
+        <li class="list">3. Dom은 웹 페이지의 객체에 접근하고 조작할 수 있습니다.</li>
+        <li class="list">4. Dom은 웹 페이지의 객체에 이벤트를 추가하거나 제거할 수 있습니다.</li> 
+
+    <hr>
+
+    <h2>Dom 실행 전 코드</h2>
+
+    <xmp>
+        <script>
+        document.getElementById('domButton').addEventListener('click', function() {
+            // Dom 객체 선택
+            var title = document.getElementById('title');
+            var list = document.getElementsByClassName('list');
+            var tag = document.getElementsByTagName('li');
+            var query = document.querySelector('.list');
+            var queryAll = document.querySelectorAll('.list');
+
+            // Dom 객체 조작
+            title.innerHTML = 'Dom 객체 선택 및 조작';
+            list[0].style.color = 'red';
+            tag[1].style.fontWeight = 'bold';
+            query.style.backgroundColor = 'yellow';
+            if (queryAll.length > 2) {
+                queryAll[2].style.fontSize = '24px'; // 배열 범위 검사 추가
+            }
+        });
+        </script>
+    </xmp>
+
+    <hr>
+
+    <button id="domButton">dom 실행</button>
+
+    <script>
+        document.getElementById('domButton').addEventListener('click', function() {
+            // Dom 객체 선택
+            var title = document.getElementById('title');
+            var list = document.getElementsByClassName('list');
+            var tag = document.getElementsByTagName('li');
+            var query = document.querySelector('.list');
+            var queryAll = document.querySelectorAll('.list');
+
+            // Dom 객체 조작
+            title.innerHTML = 'Dom 객체 선택 및 조작';
+            list[0].style.color = 'red';
+            tag[1].style.fontWeight = 'bold';
+            query.style.backgroundColor = 'yellow';
+            if (queryAll.length > 2) {
+                queryAll[2].style.fontSize = '24px'; // 배열 범위 검사 추가
+            }
+        });
+    </script>
+</body>
+</html>

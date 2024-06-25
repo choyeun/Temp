@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Js_eventlistener</title>
+</head>
+<body>
+    <h1 id="title">javascript - EventListener</h1> <!-- id 속성 추가 -->
+
+    <ul>
+        <li class="list">1. EventListener는 이벤트를 처리하는 객체입니다.</li>
+        <li class="list">2. EventListener는 이벤트를 추가하거나 제거할 수 있습니다.</li>
+        <li class="list">3. EventListener는 이벤트를 처리하는 함수를 지정합니다.</li>
+        <li class="list">4. EventListener는 이벤트를 처리하는 객체를 지정합니다.</li>
+    </ul>
+
+    <hr>
+
+    <h2>EventListener 실행 전 코드</h2>
+
+    <xmp>
+        <script>
+            var feedback = document.getElementById('feedback');
+    
+            // 클릭 이벤트 리스너
+            document.getElementById('clickButton').addEventListener('click', function() {
+                feedback.innerHTML = '버튼이 클릭되었습니다!';
+                feedback.style.color = 'green';
+            });
+    
+            // 마우스 오버 이벤트 리스너
+            document.getElementById('hoverButton').addEventListener('mouseover', function() {
+                feedback.innerHTML = '마우스가 버튼 위에 있습니다!';
+                feedback.style.color = 'blue';
+            });
+    
+            // 키보드 이벤트 리스너
+            document.getElementById('inputBox').addEventListener('keyup', function(event) {
+                feedback.innerHTML = '키가 입력되었습니다: ' + event.key;
+                feedback.style.color = 'red';
+            });
+        </script>
+    </xmp>
+
+    <hr>
+    <input type="text" id="inputBox" placeholder="여기에 입력하세요">
+    <button id="hoverButton">마우스를 올려보세요!</button>
+    <button id="clickButton">클릭해보세요!</button>
+    <div id="feedback" style="margin-top: 20px;"></div>
+    <script>
+        var feedback = document.getElementById('feedback');
+
+        // 클릭 이벤트 리스너
+        document.getElementById('clickButton').addEventListener('click', function() {
+            feedback.innerHTML = '버튼이 클릭되었습니다!';
+            feedback.style.color = 'green';
+        });
+
+        // 마우스 오버 이벤트 리스너
+        document.getElementById('hoverButton').addEventListener('mouseover', function() {
+            feedback.innerHTML = '마우스가 버튼 위에 있습니다!';
+            feedback.style.color = 'blue';
+        });
+
+        // 키보드 이벤트 리스너
+        document.getElementById('inputBox').addEventListener('keyup', function(event) {
+            feedback.innerHTML = '키가 입력되었습니다: ' + event.key;
+            feedback.style.color = 'red';
+        });
+    </script>
+</body>
+</html>

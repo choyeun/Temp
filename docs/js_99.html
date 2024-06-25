@@ -21,39 +21,46 @@
 
 <xmp>
     <script>
-        for (var i = 1; i <= 9; i++) {
-            document.write("<h3>" + i + "단</h3>");
-            for (var j = 1; j <= 9; j++) {
-                document.write(i + " * " + j + " = " + i * j + "<br>");
+        document.write("<table>"); // 테이블 시작
+        for (var row = 0; row < 3; row++) { // 3개의 큰 행을 생성
+            document.write("<tr>"); // 테이블 행 시작
+            for (var col = 0; col < 3; col++) { // 각 행마다 3개의 열을 생성
+                var dan = 9 - (3 * row + col); // 단을 계산 (9, 8, 7... 순으로)
+                document.write("<td style='padding: 10px;'>"); // 테이블 데이터 셀 시작
+                document.write("<h3>" + dan + "단</h3>"); // 단 제목
+                for (var j = 1; j <= 9; j++) { // 구구단 출력
+                    document.write(dan + " * " + j + " = " + dan * j + "<br>");
+                }
+                document.write("</td>"); // 테이블 데이터 셀 종료
             }
+            document.write("</tr>"); // 테이블 행 종료
         }
+        document.write("</table>"); // 테이블 종료
     </script>
+    
 
 </xmp>
 
 <hr>
 
-<h2>구구단 실행후 반환 값</h2>
-
-<ul>
-    <li>1. 구구단은 1단부터 9단까지 출력합니다.</li>
-    <li>2. for 문을 중첩하여 구구단을 출력합니다.</li>
-    <li>3. for 문을 중첩할 때는 외부 for 문과 내부 for 문을 구분합니다.</li>
-    <li>4. 외부 for 문은 단을, 내부 for 문은 곱을 출력합니다.</li>
-
-</ul>
-
-<hr>
-
 <script>
-    for (var i = 1; i <= 9; i++) {
-        document.write("<h3>" + i + "단</h3>");
-        for (var j = 1; j <= 9; j++) {
-            document.write(i + " * " + j + " = " + i * j + "<br>");
+    document.write("<table>"); // 테이블 시작
+    for (var row = 0; row < 3; row++) { // 3개의 큰 행을 생성
+        document.write("<tr>"); // 테이블 행 시작
+        for (var col = 0; col < 3; col++) { // 각 행마다 3개의 열을 생성
+            var dan = 9 - (3 * row + col); // 단을 계산 (9, 8, 7... 순으로)
+            document.write("<td style='padding: 10px;'>"); // 테이블 데이터 셀 시작
+            document.write("<h3>" + dan + "단</h3>"); // 단 제목
+            for (var j = 1; j <= 9; j++) { // 구구단 출력
+                document.write(dan + " * " + j + " = " + dan * j + "<br>");
+            }
+            document.write("</td>"); // 테이블 데이터 셀 종료
         }
+        document.write("</tr>"); // 테이블 행 종료
     }
-
+    document.write("</table>"); // 테이블 종료
 </script>
+
 
 
 </body>
